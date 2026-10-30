@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Event Pass · Sri Surya Devalayam</title>
+<title>Event Pass · Sri Surya Devalayam &amp; Seva Ashram</title>
 <style>
   :root{--bg:#2a0610;--card:#fffaf0;--ink:#2b1b0e;--sub:#7a6650;--gold:#d4af37;--gold2:#f9e076;--err:#b3261e}
   *{box-sizing:border-box}
@@ -41,8 +41,8 @@
 <main>
   <header>
     <div class="om">🕉️</div>
-    <h1>Sri Surya Devalayam</h1>
-    <p>Suryanarayana Swamy · Tirumalagiri</p>
+    <h1>Sri Surya Devalayam &amp; Seva Ashram</h1>
+    <p>Tirumalagiri</p>
   </header>
 
   <section class="panel" id="form">
@@ -143,8 +143,8 @@ function cardCanvas(p, date) {
   const g = c.getContext("2d");
   const grad = g.createLinearGradient(0, 0, 0, H); grad.addColorStop(0, "#5a1626"); grad.addColorStop(1, "#2a0610");
   g.fillStyle = grad; g.fillRect(0, 0, W, H);
-  g.textAlign = "center"; g.fillStyle = "#d4af37"; g.font = "bold 54px sans-serif"; g.fillText("Sri Surya Devalayam", W / 2, 110);
-  g.fillStyle = "#e8d9c4"; g.font = "30px sans-serif"; g.fillText("Suryanarayana Swamy · Tirumalagiri", W / 2, 160);
+  g.textAlign = "center"; g.fillStyle = "#d4af37"; g.font = "bold 46px sans-serif"; g.fillText(trunc(g, "Sri Surya Devalayam & Seva Ashram", W - 100), W / 2, 100);
+  g.fillStyle = "#e8d9c4"; g.font = "32px sans-serif"; g.fillText("Tirumalagiri", W / 2, 152);
   g.fillStyle = "#fffaf0"; roundRect(g, 60, 210, W - 120, H - 270, 36); g.fill();
   g.fillStyle = "#7a1f2b"; g.font = "bold 58px sans-serif"; g.fillText(trunc(g, p.event_title || "Event", W - 200), W / 2, 300);
   g.fillStyle = "#2b1b0e"; g.font = "bold 38px sans-serif"; g.fillText(date, W / 2, 358);
