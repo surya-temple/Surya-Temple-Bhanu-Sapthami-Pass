@@ -48,9 +48,7 @@
   <section class="panel" id="form">
     <label for="phone">Your mobile number</label>
     <input id="phone" type="tel" inputmode="numeric" autocomplete="tel" maxlength="14" placeholder="10-digit number">
-    <label for="code">Access code</label>
-    <input id="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="6-digit code you were given">
-    <div class="hint">The temple sent you this code along with this link.</div>
+    <div class="hint">Enter the mobile number you registered with the temple.</div>
     <div class="err" id="err" role="alert"></div>
     <button id="go">Show my pass</button>
   </section>
@@ -70,36 +68,33 @@ const SUPABASE_URL = "https://jvohnxubvtczdjaeoaoa.supabase.co";
 const PUBLISHABLE_KEY = "sb_publishable_zLHjQXckVkqUtpxxYqroQQ_LmhFx_A1";   // public by design (also inside the apps)
 
 const $ = id => document.getElementById(id);
-const phoneEl = $("phone"), codeEl = $("code"), errEl = $("err"), goBtn = $("go");
+const phoneEl = $("phone"), errEl = $("err"), goBtn = $("go");
 
-// A phone/code can be pre-filled from the link:  …/?p=9876543210&c=123456
+// The phone can be pre-filled from a personal link:  …/?p=9876543210
 const q = new URLSearchParams(location.search);
 if (q.get("p")) phoneEl.value = q.get("p");
-if (q.get("c")) codeEl.value = q.get("c");
 
 goBtn.addEventListener("click", lookup);
-[phoneEl, codeEl].forEach(el => el.addEventListener("keydown", e => { if (e.key === "Enter") lookup(); }));
+phoneEl.addEventListener("keydown", e => { if (e.key === "Enter") lookup(); });
 
 async function lookup() {
   errEl.textContent = "";
   const phone = phoneEl.value.replace(/\D/g, "").slice(-10);
-  const code = codeEl.value.trim();
   if (phone.length !== 10) return (errEl.textContent = "Enter your 10-digit mobile number.");
-  if (!/^\d{4,8}$/.test(code)) return (errEl.textContent = "Enter the numeric access code.");
   goBtn.disabled = true; goBtn.textContent = "Checking…";
   try {
     const r = await fetch(`${SUPABASE_URL}/rest/v1/rpc/get_my_passes`, {
       method: "POST",
       headers: { "apikey": PUBLISHABLE_KEY, "Authorization": `Bearer ${PUBLISHABLE_KEY}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ p_phone: phone, p_code: code }),
+      body: JSON.stringify({ p_phone: phone }),
     });
     if (!r.ok) throw new Error("http " + r.status);
     const d = await r.json();
     if (d.status === "ok") return show(d.passes);
     errEl.textContent =
-      d.status === "locked" ? "Too many wrong attempts. Please wait 15 minutes and try again." :
-      d.status === "invalid" ? "Please check the number and code." :
-      "No pass found for this number and code. Check both, or ask the temple volunteer.";
+      d.status === "busy" ? "Many people are checking right now. Please try again in a minute." :
+      d.status === "invalid" ? "Please enter a valid 10-digit mobile number." :
+      "No pass found for this number. Use the mobile number you registered with the temple, or ask a temple volunteer.";
   } catch (e) {
     errEl.textContent = "Couldn't reach the temple server. Check your internet and try again.";
   } finally {
