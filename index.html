@@ -11,7 +11,7 @@
   body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% -10%,#5a1626 0,var(--bg) 60%);color:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;justify-content:center;padding:24px 16px 48px}
   main{width:100%;max-width:420px}
   header{text-align:center;margin:12px 0 22px}
-  .om{font-size:44px;line-height:1}
+  .sunrise{display:block;margin:0 auto}
   h1{margin:8px 0 2px;font-size:24px;color:var(--gold)}
   header p{margin:0;color:#e8d9c4;font-size:14px}
   .panel{background:var(--card);color:var(--ink);border-radius:20px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
@@ -40,7 +40,24 @@
 <body>
 <main>
   <header>
-    <div class="om">🕉️</div>
+    <svg class="sunrise" width="104" height="68" viewBox="0 0 120 78" role="img" aria-label="Sunrise">
+      <defs><radialGradient id="sg" cx="60" cy="60" r="26" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#F9E076"/><stop offset="0.55" stop-color="#F2A86C"/><stop offset="1" stop-color="#D4753A"/>
+      </radialGradient></defs>
+      <g stroke="#F2A86C" stroke-width="3" stroke-linecap="round">
+        <line x1="60" y1="22" x2="60" y2="10" transform="rotate(-72 60 60)"/>
+        <line x1="60" y1="22" x2="60" y2="10" transform="rotate(-48 60 60)"/>
+        <line x1="60" y1="22" x2="60" y2="10" transform="rotate(-24 60 60)"/>
+        <line x1="60" y1="22" x2="60" y2="10"/>
+        <line x1="60" y1="22" x2="60" y2="10" transform="rotate(24 60 60)"/>
+        <line x1="60" y1="22" x2="60" y2="10" transform="rotate(48 60 60)"/>
+        <line x1="60" y1="22" x2="60" y2="10" transform="rotate(72 60 60)"/>
+      </g>
+      <path d="M34 60 A26 26 0 0 1 86 60 Z" fill="url(#sg)"/>
+      <line x1="12" y1="60" x2="108" y2="60" stroke="#F9E076" stroke-width="2" stroke-linecap="round"/>
+      <line x1="30" y1="67" x2="90" y2="67" stroke="#F2A86C" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+      <line x1="44" y1="73" x2="76" y2="73" stroke="#F2A86C" stroke-width="2" stroke-linecap="round" opacity=".35"/>
+    </svg>
     <h1>Sri Surya Devalayam &amp; Seva Ashram</h1>
     <p>Tirumalagiri</p>
   </header>
