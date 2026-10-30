@@ -119,10 +119,6 @@ function show(passes) {
     const dl = document.createElement("button"); dl.textContent = "Download pass (image)";
     dl.onclick = () => downloadPass(p, date);
     wrap.appendChild(dl);
-    if (navigator.canShare) {
-      const sh = document.createElement("button"); sh.className = "ghost"; sh.textContent = "Share / save to phone";
-      sh.onclick = () => sharePass(p, date); wrap.appendChild(sh);
-    }
     box.appendChild(wrap);
   });
 }
@@ -173,13 +169,6 @@ function downloadPass(p, date) {
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
   }, "image/png");
 }
-function sharePass(p, date) {
-  cardCanvas(p, date).toBlob(async b => {
-    const f = new File([b], fileName(p), { type: "image/png" });
-    try { await navigator.share({ files: [f], title: "Event pass" }); } catch (e) { /* user cancelled */ }
-  }, "image/png");
-}
-
 function fmtDate(iso) { const d = new Date(iso + "T00:00:00"); return isNaN(d) ? iso : d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }); }
 function esc(s) { return String(s ?? "").replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch])); }
 </script>
